@@ -1,0 +1,13 @@
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  database: scanner
+  username: scan
+  password: scan1688@#
+  charset: utf8mb4
+  loc: Local
+redis:
+  host: 127.0.0.1
+  port: 6379
+debug: true
