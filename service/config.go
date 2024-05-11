@@ -1,8 +1,8 @@
 package service
 
 import (
+	"fcihpy.com/chainBot/model"
 	"fmt"
-	"github.com/anypay/scanner/model"
 	"github.com/joho/godotenv"
 	"gopkg.in/yaml.v3"
 	"log"
@@ -13,7 +13,7 @@ var (
 	config *model.Config
 )
 
-func getConfig() *model.Config {
+func GetConfig() *model.Config {
 	if config == nil {
 		yamlFile, err := os.ReadFile("./config.yaml")
 		if err != nil {
@@ -33,12 +33,4 @@ func getConfig() *model.Config {
 		log.Println(".env 文件加载成功。。。")
 	}
 	return config
-}
-
-func LoadEnvFile() {
-	//	加载环境变量
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("无法加载 .env 文件: %v", err)
-	}
-	log.Println(".env 文件加载成功。。。")
 }

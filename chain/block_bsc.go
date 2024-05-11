@@ -3,10 +3,10 @@ package chain
 import (
 	"context"
 	"encoding/hex"
+	"fcihpy.com/chainBot/model"
+	"fcihpy.com/chainBot/service"
+	"fcihpy.com/chainBot/utils"
 	"fmt"
-	"github.com/anypay/scanner/model"
-	"github.com/anypay/scanner/service"
-	"github.com/anypay/scanner/utils"
 	"github.com/ethereum/go-ethereum/core/types"
 	"log"
 	"math/big"

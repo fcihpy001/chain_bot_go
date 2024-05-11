@@ -16,7 +16,7 @@ func EthClient() *ethclient.Client {
 	if ethClient == nil {
 
 		log.Println("env 文件读取功")
-		dial, err := ethclient.Dial(os.Getenv("ETH_CHAIN_RPC"))
+		dial, err := ethclient.Dial(os.Getenv("SEPOLIA_CHAIN_WSS"))
 		if err != nil {
 			log.Fatalf("连接以太坊节点失败：%v", err)
 		}

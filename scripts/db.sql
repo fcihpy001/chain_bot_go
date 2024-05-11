@@ -1,11 +1,11 @@
--- 创建gin_demo数据库
-CREATE DATABASE `scanner` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- 创建数据库
+CREATE DATABASE `chain` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- 创建gin_demo数据库的用户
-CREATE USER 'scan'@'%' IDENTIFIED WITH mysql_native_password BY 'scan1688@#' PASSWORD EXPIRE NEVER;
+-- 创建数据库的用户
+CREATE USER 'fcihpy'@'%' IDENTIFIED WITH mysql_native_password BY 'Fc9527@#' PASSWORD EXPIRE NEVER;
 
 -- 授权gin_demo数据库的用户
-GRANT ALL PRIVILEGES ON scanner.* TO 'scan'@'%';
+GRANT ALL PRIVILEGES ON chain.* TO 'fcihpy'@'%';
 
 -- 刷新权限
 FLUSH PRIVILEGES;

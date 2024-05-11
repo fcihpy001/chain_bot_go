@@ -2,9 +2,9 @@
 mysql:
   host: 127.0.0.1
   port: 3306
-  database: scanner
-  username: scan
-  password: scan1688@#
+  database: chain
+  username: fcihpy
+  password: Fc9527@#
   charset: utf8mb4
   loc: Local
 redis:

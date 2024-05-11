@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
+	"fcihpy.com/chainBot/model"
 	"fmt"
-	"github.com/anypay/scanner/model"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -21,11 +21,11 @@ var (
 func GetDB() *gorm.DB {
 	if db == nil {
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-			getConfig().Mysql.UserName,
-			getConfig().Mysql.Password,
-			getConfig().Mysql.Host,
-			getConfig().Mysql.Port,
-			getConfig().Mysql.Database)
+			GetConfig().Mysql.UserName,
+			GetConfig().Mysql.Password,
+			GetConfig().Mysql.Host,
+			GetConfig().Mysql.Port,
+			GetConfig().Mysql.Database)
 
 		db_tmp, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 			NamingStrategy: schema.NamingStrategy{

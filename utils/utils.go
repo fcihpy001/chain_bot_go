@@ -2,10 +2,13 @@ package utils
 
 import (
 	"context"
+	"fcihpy.com/chainBot/service"
 	"fmt"
-	"github.com/anypay/scanner/service"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"math"
 	"math/big"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -98,4 +101,60 @@ func GetTronBlock() int64 {
 	tmp, err := strconv.Atoi(str)
 	blockNumber := int64(tmp)
 	return blockNumber
+}
+
+// EthToWei eth单位安全转wei
+// https://stackoverrun.com/cn/q/13021596
+func EthToWei(val float64) *big.Int {
+	bigval := new(big.Float)
+	bigval.SetFloat64(val)
+	// Set precision if required.
+	// bigval.SetPrec(64)
+
+	coin := new(big.Float)
+	coin.SetInt(big.NewInt(1000000000000000000))
+
+	bigval.Mul(bigval, coin)
+
+	result := new(big.Int)
+	bigval.Int(result) // store converted number in result
+
+	return result
+}
+
+func Wei2Eth(balance string) {
+	//b := new(big.Int)
+	//value := b.SetBytes(data[:])
+	//amount := fmt.Sprintf("%d", value)
+
+	fbalance := new(big.Float)
+	fbalance.SetString(balance)
+	println("ff:", fbalance)
+	ethValue := new(big.Float).Quo(fbalance, big.NewFloat(math.Pow10(18)))
+	println("balance:", ethValue.String())
+}
+
+func FormatEth(amount []byte) string {
+	//byteArray := []byte{0x01, 0x00, 0x00} // 示例字节数组，你需要根据实际情况替换
+
+	// 将字节数组转换为大整数
+	bigInt := new(big.Int).SetBytes(amount)
+
+	// 将大整数除以 10^18，得到以太币单位
+	ethAmount := new(big.Float).SetInt(bigInt)
+	ethAmount.Quo(ethAmount, new(big.Float).SetInt(new(big.Int).Exp(big.NewInt(10), big.NewInt(18), nil)))
+
+	eth := ethAmount.Text('f', 18)
+	// 输出以太币单位
+	fmt.Printf("ETH Amount1: %s\n", eth)
+	return eth
+}
+
+// 获取ABI对象
+func GetABI(abiJSON string) abi.ABI {
+	wrapABI, err := abi.JSON(strings.NewReader(abiJSON))
+	if err != nil {
+		panic(err)
+	}
+	return wrapABI
 }

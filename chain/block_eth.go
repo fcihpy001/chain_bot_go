@@ -3,9 +3,10 @@ package chain
 import (
 	"context"
 	"encoding/hex"
-	"github.com/anypay/scanner/model"
-	"github.com/anypay/scanner/service"
-	"github.com/anypay/scanner/utils"
+	"fcihpy.com/chainBot/model"
+	"fcihpy.com/chainBot/service"
+	"fcihpy.com/chainBot/utils"
+	"fmt"
 	"github.com/ethereum/go-ethereum/core/types"
 	"log"
 	"math/big"
@@ -32,9 +33,10 @@ func ScanEthBlock() {
 	log.Println("ETH链最新高度为:", header.Number.Int64())
 
 	startBlock := utils.GetEthBlock()
-	for i := startBlock; i <= header.Number.Int64(); i++ {
-		getEthBlockInfo(i)
-	}
+	//for i := startBlock; i <= header.Number.Int64(); i++ {
+	//	getEthBlockInfo(i)
+	//}
+	getEthBlockInfo(startBlock)
 	isRunning = false
 }
 
@@ -50,7 +52,8 @@ func getEthBlockInfo(blockNumber int64) {
 		if tx.To() == nil {
 			continue
 		}
-		if strings.ToLower(tx.To().Hex()) == strings.ToLower(os.Getenv("ETH_USDT_CONTRACT")) { //USDT
+		if strings.ToLower(tx.To().Hex()) == strings.ToLower(os.Getenv("WBTC_CONTRACT")) {
+			log.Println("wbtc")
 			coinEventHandler(tx, blockNumber, utils.BlockTime(block.Time()))
 		}
 	}
@@ -76,10 +79,13 @@ func coinEventHandler(tx *types.Transaction, blockNumber int64, blockTime string
 			transaction.From = utils.FormatAddress(event.Topics[1].Hex())
 			transaction.To = utils.FormatAddress(event.Topics[2].Hex())
 			transaction.AmountHex = strings.TrimLeft(hex.EncodeToString(event.Data), "0")
-			transaction.Amount = utils.FormatAmount(event.Data[:])
+			transaction.Amount = utils.FormatEth(event.Data)
 			transaction.TxHash = event.TxHash.Hex()
 			transaction.TxIndex = event.Index
-			service.GetDB().Save(&transaction)
+			if err := service.GetDB().Save(&transaction); err != nil {
+				fmt.Println("入库失败", event.TxHash.Hex())
+			}
+
 		}
 	}
 }

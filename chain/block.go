@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	//startBlock int64 = 34246132
+	//startBlock int64 = 5873817
 	isRunning = false
 
 	transferEventHash = crypto.Keccak256Hash([]byte("Transfer(address,address,uint256)"))
@@ -26,7 +26,6 @@ func Task() {
 	<-make(chan interface{})
 }
 
-//
 //func ScanEthBlock() {
 //	if isRunning {
 //		return
@@ -47,7 +46,6 @@ func Task() {
 //	}
 //	isRunning = false
 //}
-//
 
 //
 //func ScanBscBlock() {

@@ -2,16 +2,15 @@ package chain
 
 import (
 	"encoding/json"
+	"fcihpy.com/chainBot/model"
+	"fcihpy.com/chainBot/service"
+	"fcihpy.com/chainBot/utils"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/anypay/scanner/model"
-	"github.com/anypay/scanner/service"
-	"github.com/anypay/scanner/utils"
 )
 
 var (
